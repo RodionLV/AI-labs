@@ -5,7 +5,7 @@ class PerceptronOneNeron{
 
 
   constructor( learningData, answers, N = 2, e = 0.1 ){
-    this.weights = Array(N).fill(1);
+    this.weights = Array(N).fill(0);
     this.e = e;
     this.N = N;
     this.train(learningData, answers);
@@ -26,7 +26,7 @@ class PerceptronOneNeron{
       sum += inputs[i] * this.weights[i];
     }
 
-    return sum > 0 ? 1 : 0;
+    return sum > 0.5 ? 1 : 0;
 
   }
 
@@ -58,7 +58,7 @@ class PerceptronOneNeron{
 
         for( let i = 0; i < this.weights.length; i++ ){
 
-          this.weights[i] += err * ( templateInputs[n][i] + 0.1) * this.e;
+          this.weights[i] += err * templateInputs[n][i] * this.e;
         }
 
       }
@@ -120,13 +120,13 @@ perceptronForOr.test(leaningData, answersOr);
 console.log("=========NOT==========");
 
 let leaningDataNot = [
-  [0],
-  [1]
+  [0, 1],
+  [1, 0]
 ]
 
 let answersNot = [ 1, 0 ]
 
 
-let perceptronForNot = new PerceptronOneNeron(leaningDataNot, answersNot, 1);
+let perceptronForNot = new PerceptronOneNeron(leaningDataNot, answersNot);
 
 perceptronForNot.test(leaningDataNot, answersNot);
